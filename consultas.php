@@ -73,7 +73,87 @@
  		}
  		$consulta="INSERT INTO ENTRADAS (IdEntrada,Titulo,Contenido,Publicado,ImagenEntrada,CodUsuario) VALUES ('".$val['id']."','".$val['titulo']."','".$val['text']."','".$val['guardar']."','".$val['imgentrada']."','".$usuario."')";
  		$query=mysqli_query($conexion,$consulta);
+ 		if (!isset($val['categoria'])) {
+			$val=array_merge($val,array("categoria" => "SIN000"));
+ 		}
+
+ 		$consulta="INSERT INTO PERTENECE VALUES ('".$val['id']."','".$val['categoria']."')";
+		$query=mysqli_query($conexion,$consulta);
  		return $query;
  	}
 
+ 	function ver_categorias($conexion) {
+ 		$datos=[];
+ 		$consulta="SELECT * FROM CATEGORIAS WHERE NombreCategoria!='Sin Categoria'";
+ 		$query=mysqli_query($conexion,$consulta);
+ 		while ($fila=mysqli_fetch_array($query)) {
+ 			$datos[]=$fila;
+ 		}
+ 		return $datos;
+ 	}
+
+ 	function datos_entrada($val,$conexion){
+ 		$datos=[];
+ 		$consulta="SELECT e.Titulo,e.Contenido,e.ImagenEntrada,c.NombreCategoria FROM ENTRADAS e JOIN PERTENECE p ON p.IdEntrada=e.IdEntrada JOIN CATEGORIAS c ON c.CodCategoria=p.CodCategoria WHERE e.IdEntrada='".$val."'";
+ 		$query=mysqli_query($conexion,$consulta);
+ 		while ($fila=mysqli_fetch_array($query)) {
+ 			$datos[]=$fila;
+ 		}
+ 		return $datos;
+ 	}
+
+ 	function editar_entrada ($id,$val,$conexion){
+ 		switch ($val['Publicado']) {
+ 			case 'Publicar':
+ 				$val['Publicado']="S";
+ 				break;
+ 			
+ 			default:
+ 				$val['Publicado']="N";
+ 				break;
+ 		}
+ 		foreach ($val as $key => $value) {
+ 			$consulta="UPDATE ENTRADAS SET $key='$value' WHERE IdEntrada='$id'";
+ 			if ($key=='Categoria') {
+ 				$consulta="UPDATE PERTENECE SET CodCategoria='$value' WHERE IdEntrada='$id'";
+ 			}
+
+ 			$query=mysqli_query($conexion,$consulta);
+ 		}
+ 		return $query;
+ 	}
+
+ 	function comentarios ($val,$conexion){
+ 		$datos=[];
+ 		$consulta="SELECT e.ImagenEntrada,e.IdEntrada,e.Titulo,c.Comentario,c.IdComentario FROM ENTRADAS e JOIN COMENTARIOS c ON e.IdEntrada=c.IdEntrada WHERE ".$val;
+ 		$query=mysqli_query($conexion,$consulta);
+ 		while ($fila=mysqli_fetch_array($query)) {
+ 			$datos[]=$fila;
+ 		}
+ 		return $datos;
+ 	
+ 	}
+
+ 	function usuario($val,$conexion){
+ 		$datos=[];
+ 		$consulta="SELECT * FROM USUARIOS WHERE Usuario='$val'";
+ 		$query=mysqli_query($conexion,$consulta);
+ 		while ($fila=mysqli_fetch_array($query)) {
+ 			$datos[]=$fila;
+ 		}
+ 		return $datos;
+ 	}
+
+ 	function editar_usuario($id,$val,$conexion){
+ 		unset($val['enviar']);
+ 		foreach ($val as $key => $value) {
+ 			$consulta="UPDATE USUARIOS SET $key='$value' WHERE CodUsuario='$id'";
+ 			$query=mysqli_query($conexion,$consulta);
+ 			if (!$query) {
+ 				echo $consulta."<br>";
+ 			}
+ 		}
+ 		return $query;
+
+ 	}
 ?>

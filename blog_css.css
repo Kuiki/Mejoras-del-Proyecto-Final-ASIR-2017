@@ -244,7 +244,7 @@ width:1200px;
 /* NUEVA ENTRADA PHP */
 
 #cuerpo #txtbox, #text {
-		width: 96.2%;
+		width: 96%;
 		height:440px;
 		padding:2%;
 		overflow:auto;
@@ -277,9 +277,9 @@ width:1200px;
 		background: rgb(46, 74, 117);
 		width: 20%;
 		height: 500px;
-		margin-top: 133px;
+		margin-top: 135px;
 		color:white;
-border-radius:0px 5px 5px 0px;
+		border-radius:0px 5px 5px 0px;
 
 	}
 

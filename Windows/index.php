@@ -1,9 +1,9 @@
-<?php session_start(); include 'conexion.php'; ?>
-<?php include('cabeza.php'); ?>
+<?php session_start(); include '../conexion.php'; ?>
+<?php include ('../cabeza.php'); ?>
 <div id="entrada">
 <?php 
-	include 'consultas.php';
-	$entradas=mostrar_entradas("",$conexion);
+	include '../consultas.php';
+	$entradas=mostrar_entradas("Windows",$conexion);
 	foreach ($entradas as $dato) {
 ?>
 	<a href="http://tutoinformatico.000webhostapp.com/enviar_entrada.php?<?php echo "titulo=".$dato['Titulo']."&id=".$dato['IdEntrada']; ?>">
@@ -16,4 +16,4 @@
 	}
 ?>
 </div>
-<?php include('pie.php'); ?>
+<?php include ('../pie.php'); ?>

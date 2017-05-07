@@ -6,7 +6,7 @@ if(!isset($_SESSION['Usuario'])){
 	if (isset($_POST['opcion'])) {
 		switch ($_POST['opcion']) {
 			case 'ENTRADAS':
-				header("Location: Entrada/entradas.php?user=".$_SESSION['Usuario']);
+				header("Location: Entrada/");
 				break;
 			case 'USUARIOS':
 				header("Location: Admin/usuarios.php");
