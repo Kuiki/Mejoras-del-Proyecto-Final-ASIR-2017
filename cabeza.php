@@ -1,8 +1,13 @@
 <html>
 <head>
 	<title>Tuto Informatico</title>
-	<link rel="stylesheet" type="text/css" href="http://tutoinformatico.000webhostapp.com/blog_css.css">
-</head>
+	<?php if (isset($_COOKIE["Tema"])): ?>
+		<link rel="stylesheet" type="text/css" href="http://tutoinformatico.000webhostapp.com/<?php echo $_COOKIE["Tema"]; ?>.css">
+	<?php else: ?>
+		<link rel="stylesheet" type="text/css" href="http://tutoinformatico.000webhostapp.com/blog_css.css">
+	<?php endif ?>
+
+	</head>
 <body>
 <div id="cabeza">
 			<div id="logo">
