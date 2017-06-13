@@ -136,8 +136,24 @@
 
  	function usuario($val,$conexion){
  		$datos=[];
- 		$consulta="SELECT * FROM USUARIOS WHERE Usuario='$val'";
+ 		$consulta="SELECT * FROM USUARIOS WHERE CodUsuario='".$val."'";
  		$query=mysqli_query($conexion,$consulta);
+ 		if (!$query) {
+ 			echo $consulta;
+ 		}
+ 		while ($fila=mysqli_fetch_array($query)) {
+ 			$datos[]=$fila;
+ 		}
+ 		return $datos;
+ 	}
+
+ 	function buscar_usuario($val,$conexion){
+ 		$datos=[];
+ 		$consulta="SELECT * FROM USUARIOS WHERE Usuario='".$val."'";
+ 		$query=mysqli_query($conexion,$consulta);
+ 		if (!$query) {
+ 			echo $consulta;
+ 		}
  		while ($fila=mysqli_fetch_array($query)) {
  			$datos[]=$fila;
  		}
@@ -146,8 +162,13 @@
 
  	function editar_usuario($id,$val,$conexion){
  		unset($val['enviar']);
+
  		foreach ($val as $key => $value) {
- 			$consulta="UPDATE USUARIOS SET $key='$value' WHERE CodUsuario='$id'";
+ 			$consulta="UPDATE USUARIOS SET ".$key."='".$value."' WHERE CodUsuario='".$id."'";
+ 			if ($key=="Contraseña") {
+ 				$consulta="UPDATE USUARIOS SET ".$key."='".md5($value)."' WHERE CodUsuario='".$id."'";
+ 			}
+ 			
  			$query=mysqli_query($conexion,$consulta);
  			if (!$query) {
  				echo $consulta."<br>";
@@ -156,4 +177,5 @@
  		return $query;
 
  	}
+
 ?>

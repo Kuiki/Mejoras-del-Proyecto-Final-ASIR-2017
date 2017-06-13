@@ -5,7 +5,7 @@
 		$consulta="DELETE FROM COMENTARIOS WHERE IdComentario='".$_GET['id']."'";
  		$query=mysqli_query($conexion,$consulta);
  		if ($query) {
- 			$pagina=$_SERVER['SERVER_NAME']."/Usuario/comentarios.php";
+ 			$pagina= PATH."/Usuario/comentarios.php";
  			header("Location:http://$pagina");
  		}else{
  			return "Error en la consulta";

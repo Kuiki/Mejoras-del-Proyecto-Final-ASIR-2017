@@ -148,6 +148,7 @@ CREATE TABLE `USUARIOS` (
   `CorreoElectronico` varchar(100) DEFAULT NULL,
   `TipoUsuario` varchar(13) DEFAULT NULL,
   `Contraseña` varchar(32) DEFAULT NULL,
+  `Tema` varchar(50) default 'default';
   PRIMARY KEY (`CodUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

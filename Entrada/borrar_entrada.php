@@ -4,7 +4,7 @@
 		$consulta="DELETE FROM ENTRADAS WHERE IdEntrada='".$_GET['id']."'";
 		$resultado=mysqli_query($conexion,$consulta);
 		if($resultado){
-			$pagina="http://".$_SERVER['SERVER_NAME']."/Entrada/";
+			$pagina="http://".PATH."/Entrada/";
 			if (isset($_GET['user'])) {
 				$pagina=$pagina."index.php?user=".$_GET['user'];
 			}

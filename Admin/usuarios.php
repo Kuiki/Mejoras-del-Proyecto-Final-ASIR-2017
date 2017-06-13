@@ -5,18 +5,21 @@
  ?>
 <?php include '../cabeza.php'; ?>
 	<div id="entrada">
-		<?php if (!isset($_POST['opcion'])) : ?>
-			<?php 
-			echo "<form action='../opcion_usuario.php' method='post' style='margin:30px 10px;float:right;'>";
-				echo "<select name='opcion'>";
-					echo "<option value='ENTRADAS'>Mis entradas</option>";
-					echo "<option value='COMENTARIOS'>Comentarios</option>";
-					echo "<option value='USUARIOS' selected>Usuarios</option>";
-					echo "<option value='PERFIL'>Mi Perfil</option>";
-				echo "</select>";
-				echo "<input type='submit' name='elegir' value='ir'>";
-			echo "</form>";
-		 ?>
+		<form action='../opcion_usuario.php' method='post' style='margin:30px 10px;float:right;'>
+				<select name='opcion'>
+					<option value='ENTRADAS' selected>Mis entradas</option>
+					<option value='COMENTARIOS'>Mis comentarios</option>
+				<?php  if ($_SESSION['TipoUsuario']=='Administrador'){
+					echo "<option value='USUARIOS'>Usuarios</option>";
+				}
+				?>
+					<option value='PERFIL'>Mi Perfil</option>
+				</select>
+				<input type='submit' name='elegir' value='ir'>
+			</form>
+
+        <h1>Usuarios</h1>
+		 <a href="../registro.php">[Crear Nuevo Usuario]</a>
  	
 		 <?php 
 		 	$consulta_usuarios="SELECT u.CodUsuario, u.Usuario, u.ImgUsuario, count(e.IdEntrada) from ENTRADAS e RIGHT JOIN USUARIOS u ON e.CodUsuario=u.CodUsuario WHERE u.TipoUsuario='Estandar' GROUP BY u.CodUsuario, u.Usuario, u.ImgUsuario";
@@ -27,9 +30,13 @@
 		 		echo $consulta_usuarios;
 		 	}
 
+		 	if (mysqli_num_rows($ver_consulta)==0){
+		 		echo "<h2>No hay usuario registrados</h2>";
+		 	}else{
+
+
 		 ?>
-                 <h1>Usuarios</h1>
-		 <a style="color:rgb(46, 74, 117);'" href="../registro.php">[Crear Nuevo Usuario]</a>
+
 		 <table>
 		 	<tr style="background: #5f5f5f; color:white">
 
@@ -52,13 +59,7 @@
 		 	 ?>
 		 </table>
 
-
-
-		<?php else: ?>
-			<?php 
-			 header("Location: ../Entrada/index.php?user=kuiki"); 
-			?>
-		<?php endif ?>
+<?php } ?>
 		
 	</div>
 <?php include '../pie.php'; ?>

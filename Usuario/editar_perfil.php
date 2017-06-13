@@ -7,35 +7,36 @@
 		<div id="entrada">
 <?php if (!isset($_FILES['avatar']['name'])): ?>
 
-		<form method='post' action="editar_perfil.php" enctype='multipart/form-data'>
-		<fieldset>
+		<form id="usuario" method='post' action="" enctype='multipart/form-data'>
 					<?php $usuario_datos=usuario($_SESSION['CodUsuario'],$conexion);
+
 						foreach ($usuario_datos as $usuario_dato) {
 					?>
-					<span>Usuario:</span><input type='text' name='Usuario' value="<?php echo $usuario_dato['Usuario']; ?>"><br><br>
-					<span>Nombre:</span><input type='text' name='Nombre' value="<?php echo $usuario_dato['Nombre']; ?>"><br><br>
-					<span>Apellidos:</span><input type='text' name='Apellidos' value="<?php echo $usuario_dato['Apellidos']; ?>"><br><br>
-					<span>Fecha de Nacimiento:</span><input type='date' name='FechaNacimiento' value="<?php echo $usuario_dato['FechaNacimiento']; ?>"><br><br>
-                    <span>Sexo:</span>
-                    	<input type='radio' name='Sexo' value="H">Hombre
-                    	<input type='radio' name='Sexo' value="M">Mujer<br><br>
-					<span>Correo Eletronico:</span><input type='email' name='CorreoElectronico' value="<?php echo $usuario_dato['CorreoElectronico']; ?>"><br><br>
-					<span>Constraseña:</span><input type='password' name='Contraseña' value="<?php echo $usuario_dato['Contraseña']; ?>"><br><br>
-					<span>Avatar:</span><input type="file" accept="image/*" name="avatar"><br>
+					<center><h1>Editar Perfil</h1></center>
+					<span>Usuario:</span><input class="input" type="text" name="Usuario" value="<?php echo $usuario_dato['Usuario']; ?>">
+					<span>Nombre:</span><input class="input" type="text" name="Nombre" value="<?php echo $usuario_dato['Nombre']; ?>">
+					<span>Apellidos:</span><input class="input" type="text" name="Apellidos" value="<?php echo $usuario_dato['Apellidos']; ?>">
+					<span>Correo Electrónico:</span><input class="input" type="email" name="CorreoElectronico" value="<?php echo $usuario_dato['CorreoElectronico']; ?>">
+					<span>Fecha de Nacimiento:</span><input class="input" type='date' name='FechaNacimiento' value="<?php echo $usuario_dato['FechaNacimiento']; ?>">
+					<span>Constraseña:</span><input class="input" type='password' name='Contraseña' value="<?php echo $usuario_dato['Contraseña']; ?>">
+					<span>Sexo:</span>
+						<input type="radio" name="Sexo" value="H" checked="ckecked">Hombre
+						<input type="radio" name="Sexo" value="M">Mujer
+					<br><br>
+					<span>Foto de Perfil:</span>
+					<br><input accept="image/*" name="avatar" type="file"><br>
 					<img style="width:100px; height:100px; float: left; margin: 10px;" src="../Img_Usuarios/<?php echo $_SESSION['ImgUsuario']; ?>">
-					<br></br><br></br><br></br><br></br>
-					<input type='submit' name='enviar' value='Guardar'>
+					<br><br>
+					<input id="enviar" type="submit" name="enviar" class="input" value="Editar">
 
 					<?php
 						}
 
-					 ?>
-		</fieldset>			
+					 ?>					
 	</form>
 
  <?php else: ?>
  	<?php 
- 		$contra=md5($_POST['Constraseña']);
 		$dir_subida='../Img_Usuarios/';
 
 		if($_FILES['avatar']['name']!=""){
@@ -51,9 +52,10 @@
 				$_POST=array_merge($_POST,array("ImgUsuario" => $_FILES['avatar']['name']));
 				$_SESSION['ImgUsuario']=$_POST['ImgUsuario'];
 			}
+
 			
-		if(editar_entrada ($_SESSION['id'],$_POST,$conexion)==true){
-				header('Location: http://tutoinformatico.000webhostapp.com/Usuario/perfil.php');
+		if(editar_usuario ($_SESSION['CodUsuario'],$_POST,$conexion)==true){
+				header('Location: http://'.PATH.'/Usuario/perfil.php');
 		}else{
 				echo "error en la consulta";
 		}

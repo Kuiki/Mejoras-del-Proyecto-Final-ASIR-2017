@@ -1,6 +1,7 @@
-<?php session_start();
+<?php ob_start(); session_start();
 include '../conexion.php';
 include '../consultas.php'; 
+
 ?>
 
 <!DOCTYPE html>
@@ -64,13 +65,6 @@ if (x=="o") {
 				</div>
 				<div id="txtbox" contenteditable="true">
 					<p>Escribe aqui ...</p>
-					<p></p>
-					<p></p>
-					<p></p>
-					<p></p>
-					<br></br>
-					<br></br>
-					
 				</div>
 				<textarea id="text" name="text"></textarea>
 			</div>
@@ -103,7 +97,7 @@ if (x=="o") {
 		<?php
 		$usuario=""; 
 		if (isset($_GET['user'])) {
-			$usuario=usuario($_GET['user'],$conexion);
+			$usuario=buscar_usuario($_GET['user'],$conexion);
 			foreach ($usuario as $valor) {
 				$usuario=$valor['CodUsuario'];
 			}
@@ -128,10 +122,11 @@ if (x=="o") {
 
 		if ($agregar==true) {
 			if (isset($_GET['user'])) {
-					$pagina="http://tutoinformatico.000webhostapp.com/Entrada/index.php?user=".$_GET['user'];
+					$pagina="http://".PATH."/Entrada/index.php?user=".$_GET['user'];
 					header("Location: $pagina");
 			}else{
-					header('Location: http://tutoinformatico.000webhostapp.com/Entrada/');
+					$pagina="http://".PATH."/Entrada/";
+					header("Location: $pagina");
 			}
 		}
 		 ?>
@@ -143,3 +138,4 @@ if (x=="o") {
 
 </body>
 </html>
+<?php ob_end_flush(); ?>

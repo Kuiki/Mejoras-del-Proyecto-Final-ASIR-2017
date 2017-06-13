@@ -46,7 +46,7 @@
  	?>
 		<tr>
 			<td><img style="width:50px; height:50px;" src='../Img_Entradas/<?php echo $comentario['ImagenEntrada']; ?>'></td>
-			<td><a href="http://tutoinformatico.000webhostapp.com/enviar_entrada.php?<?php echo "titulo=".$comentario['Titulo']."&id=".$comentario['IdEntrada']; ?>"><?php echo $comentario['Titulo']; ?></a></td>
+			<td><a href="http://<?php echo PATH; ?>/enviar_entrada.php?<?php echo "titulo=".$comentario['Titulo']."&id=".$comentario['IdEntrada']; ?>"><?php echo $comentario['Titulo']; ?></a></td>
 			<td><p><?php echo $comentario['Comentario']; ?></p></td>
 			<td><a href='eliminar_comentario.php?id=<?php echo $comentario['IdComentario']; ?>'>eliminar</a></td>
 		</tr>

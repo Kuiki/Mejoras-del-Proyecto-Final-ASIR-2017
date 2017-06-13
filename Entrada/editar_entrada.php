@@ -1,4 +1,4 @@
-<?php session_start();
+<?php ob_start(); session_start();
 include '../conexion.php';
 include '../consultas.php'; 
 ?>
@@ -47,7 +47,7 @@ if (x=="o") {
 			foreach ($datos_entrada as $dato) {
 		?>
 			<div id="editor">
-				<h1>Nueva Entrada</h1>
+				<h1>Editar Entrada</h1>
 				<input id="titulo" type="text" name="Titulo" value="<?php echo $dato['Titulo']; ?>" required><br>
 				<div id="menu">
 					<center>
@@ -88,7 +88,7 @@ if (x=="o") {
 							$categoria['CodCategoria']="value='".$categoria['CodCategoria']."'";				
 						}
 				?>
-					<li><input type="radio" name="Categoria" <?php echo $categoria['CodCategoria']; ?>><?php echo " ".$categoria['NombreCategoria']; ?></li><br>
+					<li><input type="radio" name="Categoria" value="<?php echo $categoria['CodCategoria']; ?>"><?php echo " ".$categoria['NombreCategoria']; ?></li><br>
 				<?php
 					}
 				?>
@@ -119,7 +119,7 @@ if (x=="o") {
 			}
 			
 		if(editar_entrada ($_GET['id'],$_POST,$conexion)==true){
-				$pagina="http://".$_SERVER['SERVER_NAME']."/Entrada/";
+				$pagina="http://".PATH."/Entrada/";
 				if (isset($_GET['user'])) {
 					$pagina=$pagina."index.php?user=".$_GET['user'];
 					
@@ -137,3 +137,4 @@ if (x=="o") {
 
 </body>
 </html>
+<?php ob_end_flush(); ?>

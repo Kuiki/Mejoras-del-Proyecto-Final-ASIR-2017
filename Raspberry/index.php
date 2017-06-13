@@ -6,9 +6,9 @@
 	$entradas=mostrar_entradas("Raspberry",$conexion);
 	foreach ($entradas as $dato) {
 ?>
-	<a href="http://tutoinformatico.000webhostapp.com/enviar_entrada.php?<?php echo "titulo=".$dato['Titulo']."&id=".$dato['IdEntrada']; ?>">
+	<a href="http://<?php echo PATH; ?>/enviar_entrada.php?<?php echo "titulo=".$dato['Titulo']."&id=".$dato['IdEntrada']; ?>">
 		<div id='enviar_entrada'>
-			<img class='imgentrada' src='http://tutoinformatico.000webhostapp.com/Img_Entradas/<?php echo $dato['ImagenEntrada']; ?>'; ><br>
+			<img class='imgentrada' src='http://<?php echo PATH;?>/Img_Entradas/<?php echo $dato['ImagenEntrada']; ?>'; ><br>
 			<p class='sintaxis'><?php echo $dato['Contenido']; ?></p>
 		</div>
 	</a>
